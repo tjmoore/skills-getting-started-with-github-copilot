@@ -113,3 +113,16 @@ def test_remove_nonexistent_participant_returns_404(client):
 
     # Assert
     assert resp.status_code == 404
+
+
+def test_remove_participant_nonexistent_activity_returns_404(client):
+    # Arrange
+    activity = "No Such Club"
+    email = "someone@mergington.edu"
+    encoded = quote(activity, safe="")
+
+    # Act
+    resp = client.delete(f"/activities/{encoded}/participants", params={"email": email})
+
+    # Assert
+    assert resp.status_code == 404
